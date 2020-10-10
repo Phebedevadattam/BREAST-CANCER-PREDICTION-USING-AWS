@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            background-image:url(cancer.jpeg);
+            background-size:1200px 800px;
+            background-repeat: no-repeat;
+        }
+
+        input {
+            border: 0;
+            outline: 0;
+            background: transparent;
+            border-bottom: 1px solid grey;
+
+        }
+
+        .btn{
+              background-color: black;
+              border: none;
+              color: white;
+              padding: 16px 32px;
+              text-align: center;
+              font-size: 16px;
+              margin: 4px 2px;
+              transition: 0.3s;
+        }
+
+        .btn:hover {
+              background-color: grey;
+              color: white;
+         }
+    </style>
+<meta charset="utf-8">
+<title>Cancer Prediction</title>
+</head>
+<body>
+<center>
+    <h1>Breast Cancer Prediction</h1>
+    <h2>Please Enter The Details Below:</h2>
+
+    <input type="number" placeholder="radius_mean" id="radius_mean"><br>
+    <br><input type="number" placeholder="perimeter_mean" id="perimeter_mean"><br>
+    <br><input type="number" placeholder="area_mean" id="area_mean"><br>
+    <br><input type="number" placeholder="concave_points_mean" id="concave_points_mean"><br>
+    <br><input type="number" placeholder="radius_worst" id="radius_worst"><br>
+    <br><input type="number" placeholder="perimeter_worst" id="perimeter_worst"><br>
+    <br><input type="number" placeholder="area_worst" id="area_worst"><br>
+    <br><input type="number" placeholder="concave_points_worst" id="concave_points_worst"><br>
+    <br><input type="email" placeholder="Email-ID" id="Email-ID"><br>
+
+    <br><button class=btn type="button" onclick="getapi();">Submit</button>
+    </center>
+
+    <script>
+
+        async function getapi() {
+             var radius_mean = document.getElementById("radius_mean").value;
+             var perimeter_mean= document.getElementById("perimeter_mean").value;
+             var area_mean = document.getElementById("area_mean").value;
+             var concave_points_mean = document.getElementById("concave_points_mean").value;
+             var radius_worst = document.getElementById("radius_worst").value;
+             var perimeter_worst = document.getElementById("perimeter_worst").value;
+             var area_worst = document.getElementById("area_worst").value;
+             var concave_points_worst = document.getElementById("concave_points_worst").value;
+             var Email-ID = document.getElementById("Email-ID").value;
+
+            url="https://k4phldnlsi.execute-api.us-east-1.amazonaws.com/samplecancer?data="+radius_mean+","+perimeter_mean+","+area_mean+","+concave_points_mean+","+radius_worst+","+perimeter_wors+","+area_worst+","+concave_points_worst;
+        // Storing response
+        const response = await fetch(url);
+        var data = await response.json();
+        console.log(data);
+        alert("Successful")
+        show(data);
+    }
+
+    function show(data) {
+     let tab = `
+    	<h1><center>According to the data you have entered it is ${data}. The same is mailed to you.</center></h1>
+       `;
+    document.getElementById("result").innerHTML = tab;
+    }
+
+    </script>
+<center><text id="result"></text></center>
+</body>
+</html>
